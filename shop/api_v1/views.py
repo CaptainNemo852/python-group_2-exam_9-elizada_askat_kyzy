@@ -58,7 +58,7 @@ class BaseViewSet(viewsets.ModelViewSet):
 
 
 class ProductViewSet(viewsets.ModelViewSet):
-    queryset = Product.objects.all().order_by('-receipt_date')
+    queryset = Product.objects.all().order_by('-date')
     serializer_class = ProductSerializer
 
     def perform_destroy(self, instance):

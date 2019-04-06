@@ -122,21 +122,19 @@ class ProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ("url", "id", "name", "description", "date", "price", "categories", "photos")
+        fields = ("id", "name", "description", "date", "price", "categories", "photos")
 
 
 class PhotoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Photo
-        fields = ("url", "id", "products", "photo")
+        fields = ("id", "photo")
 
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ("url", "id", "name", "description")
-
-
+        fields = ("id", "name", "description")
 
 
 
@@ -145,4 +143,4 @@ class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ("url", "id", "user", "products", "comment", "phone", "address", "date")
+        fields = ("id", "user", "products", "comment", "phone", "address", "created_date")

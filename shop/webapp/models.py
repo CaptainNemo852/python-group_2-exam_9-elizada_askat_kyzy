@@ -35,7 +35,7 @@ class SoftDeleteManager(models.Manager):
 class Product(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название товара")
     description = models.TextField(max_length= 2000, blank=True, null=True, verbose_name="Описание")
-    receipt_date = models.DateField(verbose_name="Дата поступления")
+    date = models.DateField(verbose_name="Дата поступления")
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Цена товара")
     categories = models.ManyToManyField('Category', blank=True, related_name='products_by_category',
                                         verbose_name='Категория товара')
@@ -59,12 +59,12 @@ class Category(models.Model):
 
 class Order(models.Model):
     user = models.ForeignKey(User,on_delete=models.PROTECT, related_name='orders', verbose_name="Заказ")
-    products = models.ForeignKey(Product, on_delete=models.PROTECT, related_name = 'orders', verbose_name="Продукты в списке заказ")
+    products = models.ManyToManyField(Product, related_name="orders", verbose_name="Список товаров на заказ")
     phone = models.CharField(max_length=255, verbose_name="Телефон")
     address = models.CharField(max_length=255, blank = True, null=True, verbose_name="Адрес доставки")
-    comment = models.TextField(max_length=2000, blank=True, null= True, verbose_name="Коментарии")
+    comment = models.TextField(max_length=2000, blank=True, null=True, verbose_name="Коментарии")
     created_date = models.DateTimeField(auto_now_add=True, verbose_name="Дата и время создания")
 
 
     def __str__(self):
-        return "%s - %s" %(self.products, self.created_date)
+        return "%s - %s" %(self.user, self.created_date)
